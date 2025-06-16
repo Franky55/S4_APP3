@@ -57,14 +57,19 @@ end component;
 
 component MemDonnees is
 Port ( 
-	clk : in std_logic;
-	reset : in std_logic;
-	i_MemRead 	: in std_logic;
-	i_MemWrite : in std_logic;
-	i_vec      : in std_logic;
-    i_Addresse : in std_logic_vector (31 downto 0);
-	i_WriteData : in std_logic_vector (127 downto 0);
-    o_ReadData : out std_logic_vector (127 downto 0)
+	clk 		: in std_logic;
+	reset 		: in std_logic;
+	i_MemRead	: in std_logic;
+	i_MemWrite 	: in std_logic;
+    i_Addresse 	: in std_logic_vector (31 downto 0);
+	i_WriteData : in std_logic_vector (31 downto 0);
+    o_ReadData 	: out std_logic_vector (31 downto 0);
+	
+	-- ports pour acc?s ? large bus, adresse partag?e
+	i_MemReadWide       : in std_logic;
+	i_MemWriteWide 		: in std_logic;
+	i_WriteDataWide 	: in std_logic_vector (127 downto 0);
+    o_ReadDataWide 		: out std_logic_vector (127 downto 0)
 );
 end component;
 
@@ -120,7 +125,7 @@ end component;
     signal s_AluResult             : std_logic_vector(127 downto 0);
     signal s_AluMultResult          : std_logic_vector(63 downto 0);
     
-    signal s_Data2Reg_muxout       : std_logic_vector(31 downto 0); -- Maybe put 127
+    signal s_Data2Reg_muxout       : std_logic_vector(127 downto 0);
     
     signal s_imm_extended          : std_logic_vector(31 downto 0);
     signal s_imm_extended_shifted  : std_logic_vector(31 downto 0);
@@ -173,7 +178,7 @@ s_adresse_branche				<= std_logic_vector(unsigned(s_imm_extended_shifted) + unsi
 
 -- note, "i_jump_register" n'est pas dans les figures de COD5
 s_PC_Suivant		<= s_adresse_jump when i_jump = '1' else
-                       s_reg_data1 when i_jump_register = '1' else
+                       s_reg_data1(31 downto 0) when i_jump_register = '1' else
 					   s_adresse_branche when (i_branch = '1' and s_zero = '1') else
 					   s_adresse_PC_plus_4;
 					   
@@ -275,10 +280,13 @@ Port map(
 	reset 		=> reset,
 	i_MemRead	=> i_MemRead,
 	i_MemWrite	=> i_MemWrite,
-	i_vec       => i_vec,
+	i_MemReadWide => i_vec and i_MemRead,
+	i_MemWriteWide => i_vec and i_MemWrite,
     i_Addresse	=> s_AluResult(31 downto 0),
-	i_WriteData => s_reg_data2,
-    o_ReadData	=> s_MemoryReadData
+	i_WriteData => s_reg_data2(31 downto 0),
+    o_ReadData	=> s_MemoryReadData(31 downto 0),
+    i_WriteDataWide => s_reg_data2,
+    o_ReadDataWide => s_MemoryReadData
 	);
 	
 
@@ -286,11 +294,28 @@ Port map(
 -- Mux d'écriture vers le banc de registres
 ------------------------------------------------------------------------
 
-s_Data2Reg_muxout    <= s_adresse_PC_plus_4 when i_jump_link = '1' else
-					    r_HI                when i_mfhi = '1' else 
-					    r_LO                when i_mflo = '1' else
-					    s_AluResult         when i_MemtoReg = '0' else 
-						s_MemoryReadData;
+process(s_adresse_PC_plus_4, i_jump_link, r_HI, r_LO, i_mfhi, i_mflo, s_AluResult, i_MemtoReg, s_MemoryReadData, s_opcode)
+begin
+    if (i_jump_link = '1') then
+        s_Data2Reg_muxout(31 downto 0)   <= s_adresse_PC_plus_4;
+        s_Data2Reg_muxout(127 downto 32) <= (others => '0');
+        
+    elsif(i_mfhi = '1') then
+        s_Data2Reg_muxout(31 downto 0)   <= r_HI;
+        s_Data2Reg_muxout(127 downto 32) <= (others => '0');
+        
+    elsif(i_mflo = '1') then
+        s_Data2Reg_muxout(31 downto 0)   <= r_LO;
+        s_Data2Reg_muxout(127 downto 32) <= (others => '0');
+            
+                              
+    elsif(i_MemtoReg = '0') then
+        s_Data2Reg_muxout <= s_AluResult; 
+                                 
+    else
+        s_Data2Reg_muxout <= s_MemoryReadData;
+    end if;
+end process;
 
 
 		

@@ -30,57 +30,38 @@ entity BancRegistres is
 end BancRegistres;
 
 architecture comport of BancRegistres is
-    signal regs: RAM(0 to 23) := (21 => X"100103FC", -- registre $SP
+    signal regs: RAM(0 to 31) := (29 => X"100103FC", -- registre $SP
                                 others => (others => '0'));
-    signal regs_vec: RAM128(0 to 7) := (others => (others => '0'));
-    
-    signal int_i_RS1 : integer range 0 to 31 := 0;
-    signal int_i_RS2 : integer range 0 to 31 := 0;
-    signal int_i_WDest : integer range 0 to 31 := 0;
-    
+    signal regsV: RAM128(0 to 2) := (others => (others => '0'));     
+                        
 begin
-    
-    int_i_RS1 <= to_integer(unsigned(i_RS1));
-    int_i_RS2 <= to_integer(unsigned(i_RS2));
-    int_i_WDest <= to_integer(unsigned(i_WDest));
     process( clk )
     begin
         if clk='1' and clk'event then
-            if (i_WE = '1' and reset = '0' and i_WDest /= "00000") then
-                if (int_i_WDest < 16) then
-                    regs(int_i_WDest) <= i_Wr_DAT(31 downto 0);
-                elsif (int_i_WDest >= 16 and int_i_WDest <= 23) then
-                    regs_vec(int_i_WDest - 16) <= i_Wr_DAT;
+            if i_WE = '1' and reset = '0' and i_WDest /= "00000" then
+                if (unsigned(i_WDest) = 15 or unsigned(i_WDest) = 14 or unsigned(i_WDest) = 13 or unsigned(i_WDest) = 12) then
+                    regsV( to_integer( unsigned(i_WDest))- 12) <= i_Wr_DAT;
                 else
-                    regs(int_i_WDest - 8) <= i_Wr_DAT(31 downto 0);
+                    regs( to_integer( unsigned(i_WDest))) <= i_Wr_DAT (31 downto 0);
                 end if;
             end if;
         end if;
     end process;
     
-    process(regs, regs_vec, int_i_RS1)
+
+    process( regs, regsV )
     begin
-        if (int_i_RS1 < 16) then
-            o_RS1_DAT(31 downto 0) <= regs(int_i_RS1);
-            o_RS1_DAT(127 downto 32) <= (others => '0');
-        elsif (int_i_RS1 >= 16 and int_i_RS1 <= 23) then
-            o_RS1_DAT <= regs_vec(int_i_RS1 - 16);
+        if (unsigned(i_RS1) = 15 or unsigned(i_RS1) = 14 or unsigned(i_RS1) = 13 or unsigned(i_RS1) = 12) then
+            o_RS1_DAT <= regsV( to_integer(unsigned(i_RS1))-12);
         else
-            o_RS1_DAT(31 downto 0) <= regs(int_i_RS1 - 8);
-            o_RS1_DAT(127 downto 32) <= (others => '0');
+            o_RS1_DAT(31 downto 0) <= regs( to_integer(unsigned(i_RS1)));
+            o_RS1_DAT(127 downto 32) <=  (others => '0');
         end if;
-    end process;
-    
-    process(regs, regs_vec, int_i_RS2)
-    begin
-        if (int_i_RS2 < 16) then
-            o_RS2_DAT(31 downto 0) <= regs(int_i_RS2);
-            o_RS2_DAT(127 downto 32) <= (others => '0');
-        elsif (int_i_RS2 >= 16 and int_i_RS2 <= 23) then
-            o_RS2_DAT <= regs_vec(int_i_RS2 - 16);
+        if (unsigned(i_RS2) = 15 or unsigned(i_RS2) = 14 or unsigned(i_RS2) = 13 or unsigned(i_RS2) = 12) then
+            o_RS2_DAT <= regsV( to_integer(unsigned(i_RS2))-12);
         else
-            o_RS2_DAT(31 downto 0) <= regs(int_i_RS2 - 8);
-            o_RS2_DAT(127 downto 32) <= (others => '0');
+            o_RS2_DAT(31 downto 0) <= regs( to_integer(unsigned(i_RS2)));
+            o_RS2_DAT(127 downto 32) <=  (others => '0');
         end if;
     end process;
 end comport;

@@ -92,7 +92,7 @@ end component;
     signal s_ALUSrc         : std_logic;
 	signal s_MemRead	    : std_logic;
 	signal s_MemWrite	    : std_logic;
-	signal s_vec            : std_ulogic; -- ulogic?
+	signal s_vec            : std_logic; -- ulogic?
 	signal s_jump_register  : std_logic;
 	signal s_jump_link      : std_logic;
     signal s_jump           : std_logic;
