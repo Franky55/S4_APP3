@@ -28,6 +28,7 @@ Port (
     i_Addresse 	: in std_logic_vector (31 downto 0);
 	i_WriteData : in std_logic_vector (31 downto 0);
     o_ReadData 	: out std_logic_vector (31 downto 0);
+    i_vec       : in std_logic;
 	
 	-- ports pour acc?s ? large bus, adresse partag?e
 	i_MemReadWide       : in std_logic;
@@ -43,6 +44,12 @@ architecture Behavioral of MemDonnees is
 -- Ins?rez vos donnees ici
 ------------------------
 
+X"00000006",
+X"00000007",
+X"00000008",
+X"00000009",
+X"0000000A",
+
 ------------------------
 -- Fin de votre code
 ------------------------
@@ -52,6 +59,11 @@ architecture Behavioral of MemDonnees is
 	signal s_MemoryRangeValid 	: std_logic;
 	
     signal s_WideMemoryRangeValid  : std_logic;
+    
+    signal debug1 : std_logic_vector (31 downto 0);
+    signal debug2 : std_logic_vector (31 downto 0);
+    signal debug3 : std_logic_vector (31 downto 0);
+    signal debug4 : std_logic_vector (31 downto 0);
 
 begin
     -- Transformation de l'adresse en entier ? interval fix?s
@@ -80,29 +92,33 @@ begin
 	end process;
 	
 	-- Partie pour l'?criture
-	process( clk )
+	process( clk, i_MemWriteWide, reset, i_vec )
     begin
         if clk='1' and clk'event then
-            if i_MemWriteWide = '1' and reset = '0' and s_WideMemoryRangeValid = '1' then
+            if i_MemWriteWide = '1' and reset = '0' and i_vec = '1' then
 				ram_DataMemory(s_MemoryIndex + 3) <= i_WriteDataWide(127 downto 96);
 				ram_DataMemory(s_MemoryIndex + 2) <= i_WriteDataWide( 95 downto 64);
 				ram_DataMemory(s_MemoryIndex + 1) <= i_WriteDataWide( 63 downto 32);
 				ram_DataMemory(s_MemoryIndex + 0) <= i_WriteDataWide( 31 downto  0);
-            elsif i_MemWrite = '1' and reset = '0' and s_MemoryRangeValid = '1' then
+            elsif i_MemWrite = '1' and reset = '0' and i_vec = '0' then
                 ram_DataMemory(s_MemoryIndex) <= i_WriteData;
             end if;
         end if;
     end process;
 
-    -- Valider que nous sommes dans le segment de m?moire, avec 256 addresses valides
-    o_ReadData <= ram_DataMemory(s_MemoryIndex) when s_MemoryRangeValid = '1'
-                    else (others => '0');
-	
-	-- valider le segment et l'alignement de l'adresse
-	o_ReadDataWide <= ram_DataMemory(s_MemoryIndex + 3) & 
-					  ram_DataMemory(s_MemoryIndex + 2) & 
-					  ram_DataMemory(s_MemoryIndex + 1) & 
-					  ram_DataMemory(s_MemoryIndex + 0)   when s_WideMemoryRangeValid = '1'
-					else (others => '0');
 
+    -- Valider que nous sommes dans le segment de m?moire, avec 256 addresses valides
+    o_ReadData <= ram_DataMemory(s_MemoryIndex) when i_vec = '0'
+                    else (others => '0');
+    
+    debug1 <= ram_DataMemory(s_MemoryIndex + 3);
+    debug2 <= ram_DataMemory(s_MemoryIndex + 2);
+    debug3 <= ram_DataMemory(s_MemoryIndex + 1);
+    debug4 <= ram_DataMemory(s_MemoryIndex + 0);
+    -- valider le segment et l'alignement de l'adresse -- negatif works i guess
+    o_ReadDataWide <= ram_DataMemory(s_MemoryIndex + 3) & 
+                      ram_DataMemory(s_MemoryIndex + 2) & 
+                      ram_DataMemory(s_MemoryIndex + 1) & 
+                      ram_DataMemory(s_MemoryIndex + 0)   when i_vec = '1'
+                    else (others => '0');
 end Behavioral;

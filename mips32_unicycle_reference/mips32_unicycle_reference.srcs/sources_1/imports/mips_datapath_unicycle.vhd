@@ -64,6 +64,7 @@ Port (
     i_Addresse 	: in std_logic_vector (31 downto 0);
 	i_WriteData : in std_logic_vector (31 downto 0);
     o_ReadData 	: out std_logic_vector (31 downto 0);
+    i_vec       : in std_logic;
 	
 	-- ports pour acc?s ? large bus, adresse partag?e
 	i_MemReadWide       : in std_logic;
@@ -79,7 +80,8 @@ end component;
 		reset : in std_logic;
 		i_RS1 : in std_logic_vector (4 downto 0);
 		i_RS2 : in std_logic_vector (4 downto 0);
-		i_Wr_DAT : in std_logic_vector (127 downto 0);
+		i_Wr_DAT : in std_logic_vector (31 downto 0);
+		i_Wr_DAT_vec: in  std_logic_vector (127 downto 0);
 		i_WDest : in std_logic_vector (4 downto 0);
 		i_WE : in std_logic;
 		o_RS1_DAT : out std_logic_vector (127 downto 0);
@@ -120,18 +122,19 @@ end component;
     signal s_instr_funct : std_logic_vector( 5 downto 0);
     signal s_imm16       : std_logic_vector(15 downto 0);
     signal s_jump_field  : std_logic_vector(25 downto 0);
-    signal s_reg_data1        : std_logic_vector(127 downto 0);
-    signal s_reg_data2        : std_logic_vector(127 downto 0);
-    signal s_AluResult             : std_logic_vector(127 downto 0);
+    signal s_reg_data1        : std_logic_vector(127 downto 0) := (others => '0');
+    signal s_reg_data2        : std_logic_vector(127 downto 0) := (others => '0');
+    signal s_AluResult             : std_logic_vector(127 downto 0) := (others => '0');
     signal s_AluMultResult          : std_logic_vector(63 downto 0);
     
-    signal s_Data2Reg_muxout       : std_logic_vector(127 downto 0);
+    signal s_Data2Reg_muxout       : std_logic_vector(31 downto 0);
     
     signal s_imm_extended          : std_logic_vector(31 downto 0);
     signal s_imm_extended_shifted  : std_logic_vector(31 downto 0);
 	
     signal s_Reg_Wr_Data           : std_logic_vector(31 downto 0);
-    signal s_MemoryReadData        : std_logic_vector(127 downto 0);
+    signal s_MemoryReadData        : std_logic_vector(31 downto 0);
+    signal s_MemoryReadData_vec    : std_logic_vector(127 downto 0);
     signal s_AluB_data             : std_logic_vector(31 downto 0);
     
     -- registres spéciaux pour la multiplication
@@ -210,6 +213,7 @@ port map (
 	i_RS1        => s_rs,
 	i_RS2        => s_rt,
 	i_Wr_DAT     => s_Data2Reg_muxout,
+	i_Wr_DAT_vec => s_MemoryReadData_vec,
 	i_WDest      => s_WriteRegDest_muxout,
 	i_WE         => i_RegWrite,
 	o_RS1_DAT    => s_reg_data1,
@@ -282,11 +286,12 @@ Port map(
 	i_MemWrite	=> i_MemWrite,
 	i_MemReadWide => i_vec and i_MemRead,
 	i_MemWriteWide => i_vec and i_MemWrite,
+	i_vec       => i_vec,
     i_Addresse	=> s_AluResult(31 downto 0),
 	i_WriteData => s_reg_data2(31 downto 0),
-    o_ReadData	=> s_MemoryReadData(31 downto 0),
+    o_ReadData	=> s_MemoryReadData,
     i_WriteDataWide => s_reg_data2,
-    o_ReadDataWide => s_MemoryReadData
+    o_ReadDataWide => s_MemoryReadData_vec
 	);
 	
 
@@ -294,28 +299,11 @@ Port map(
 -- Mux d'écriture vers le banc de registres
 ------------------------------------------------------------------------
 
-process(s_adresse_PC_plus_4, i_jump_link, r_HI, r_LO, i_mfhi, i_mflo, s_AluResult, i_MemtoReg, s_MemoryReadData, s_opcode)
-begin
-    if (i_jump_link = '1') then
-        s_Data2Reg_muxout(31 downto 0)   <= s_adresse_PC_plus_4;
-        s_Data2Reg_muxout(127 downto 32) <= (others => '0');
-        
-    elsif(i_mfhi = '1') then
-        s_Data2Reg_muxout(31 downto 0)   <= r_HI;
-        s_Data2Reg_muxout(127 downto 32) <= (others => '0');
-        
-    elsif(i_mflo = '1') then
-        s_Data2Reg_muxout(31 downto 0)   <= r_LO;
-        s_Data2Reg_muxout(127 downto 32) <= (others => '0');
-            
-                              
-    elsif(i_MemtoReg = '0') then
-        s_Data2Reg_muxout <= s_AluResult; 
-                                 
-    else
-        s_Data2Reg_muxout <= s_MemoryReadData;
-    end if;
-end process;
+s_Data2Reg_muxout    <= s_adresse_PC_plus_4 when i_jump_link = '1' else
+                        r_HI                when i_mfhi = '1' else 
+                        r_LO                when i_mflo = '1' else
+                        s_AluResult(31 downto 0)         when i_MemtoReg = '0' else 
+                        s_MemoryReadData; 
 
 
 		

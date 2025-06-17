@@ -65,13 +65,13 @@ architecture Behavioral of MemInstructions is
 --X"2002000a",
 --X"0000000c",
 
-
+X"341DFFF0",
 X"23bdfff0",  
-X"24080001",  
+X"24080005",  
 X"afa80000",  
 X"24080002",  
 X"afa80004",  
-X"24080003",  
+X"24080001",  
 X"afa80008",  
 X"24080004",  
 X"afa8000c",  

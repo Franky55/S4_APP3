@@ -22,7 +22,8 @@ entity BancRegistres is
            reset     : in  std_logic;
            i_RS1     : in  std_logic_vector (4 downto 0);
            i_RS2     : in  std_logic_vector (4 downto 0);
-           i_Wr_DAT  : in  std_logic_vector (127 downto 0);
+           i_Wr_DAT  : in  std_logic_vector (31 downto 0);
+           i_Wr_DAT_vec: in  std_logic_vector (127 downto 0);
            i_WDest   : in  std_logic_vector (4 downto 0);
            i_WE 	 : in  std_logic;
            o_RS1_DAT : out std_logic_vector (127 downto 0);
@@ -35,24 +36,20 @@ architecture comport of BancRegistres is
     signal regsV: RAM128(0 to 2) := (others => (others => '0'));     
                         
 begin
-    process( clk )
+    process( clk, i_WE, reset, i_WDest, regs, regsV, i_RS1, i_RS2 )
     begin
         if clk='1' and clk'event then
             if i_WE = '1' and reset = '0' and i_WDest /= "00000" then
                 if (unsigned(i_WDest) = 15 or unsigned(i_WDest) = 14 or unsigned(i_WDest) = 13 or unsigned(i_WDest) = 12) then
-                    regsV( to_integer( unsigned(i_WDest))- 12) <= i_Wr_DAT;
+                    regsV( to_integer( unsigned(i_WDest))- 12) <= i_Wr_DAT_vec;
                 else
-                    regs( to_integer( unsigned(i_WDest))) <= i_Wr_DAT (31 downto 0);
+                    regs( to_integer( unsigned(i_WDest))) <= i_Wr_DAT;
                 end if;
             end if;
         end if;
-    end process;
-    
-
-    process( regs, regsV )
-    begin
-        if (unsigned(i_RS1) = 15 or unsigned(i_RS1) = 14 or unsigned(i_RS1) = 13 or unsigned(i_RS1) = 12) then
-            o_RS1_DAT <= regsV( to_integer(unsigned(i_RS1))-12);
+        
+        if (unsigned(i_RS1) = 15 or unsigned(i_RS1) = 14 or unsigned(i_RS1) = 13 or unsigned(i_RS1) = 12) then  -- si registre $t4 - $t7
+            o_RS1_DAT <= regsV( to_integer(unsigned(i_RS1))-12);                                                -- vector -12 pour drop a 0
         else
             o_RS1_DAT(31 downto 0) <= regs( to_integer(unsigned(i_RS1)));
             o_RS1_DAT(127 downto 32) <=  (others => '0');
