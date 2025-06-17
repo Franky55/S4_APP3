@@ -131,7 +131,8 @@ begin
 								i_Op = OP_LUI or 
 								i_Op = OP_LW or 
 								i_Op = OP_JAL or 
-								i_Op = OP_LWV
+								i_Op = OP_LWV or
+								i_Op = OP_ADDV
 						else '0';
 	
 	o_RegDst 		<= '1' when i_Op = OP_Rtype else '0';

@@ -125,12 +125,12 @@ begin
 	process( clk, i_MemWriteWide, reset, i_vec )
     begin
         if clk='1' and clk'event then
-            if i_MemWriteWide = '1' and reset = '0' and i_vec = '1' then
+            if i_MemWriteWide = '1' and reset = '0' and i_vec = '1' and s_WideMemoryRangeValid = '1' then
 				ram_DataMemory(s_MemoryIndex + 3) <= i_WriteDataWide(127 downto 96);
 				ram_DataMemory(s_MemoryIndex + 2) <= i_WriteDataWide( 95 downto 64);
 				ram_DataMemory(s_MemoryIndex + 1) <= i_WriteDataWide( 63 downto 32);
 				ram_DataMemory(s_MemoryIndex + 0) <= i_WriteDataWide( 31 downto  0);
-            elsif i_MemWrite = '1' and reset = '0' and i_vec = '0' then
+            elsif i_MemWrite = '1' and reset = '0' and i_vec = '0' and s_MemoryRangeValid = '1' then
                 ram_DataMemory(s_MemoryIndex) <= i_WriteData;
             end if;
         end if;
@@ -138,7 +138,7 @@ begin
 
 
     -- Valider que nous sommes dans le segment de m?moire, avec 256 addresses valides
-    o_ReadData <= ram_DataMemory(s_MemoryIndex) when i_vec = '0'
+    o_ReadData <= ram_DataMemory(s_MemoryIndex) when i_vec = '0' and s_MemoryRangeValid = '1'
                     else (others => '0');
     
 --    debug1 <= ram_DataMemory(s_MemoryIndex + 3);

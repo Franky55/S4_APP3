@@ -128,6 +128,7 @@ end component;
     signal s_AluMultResult          : std_logic_vector(63 downto 0);
     
     signal s_Data2Reg_muxout       : std_logic_vector(31 downto 0);
+    signal s_Data2Reg_muxout_vec       : std_logic_vector(127 downto 0);
     
     signal s_imm_extended          : std_logic_vector(31 downto 0);
     signal s_imm_extended_shifted  : std_logic_vector(31 downto 0);
@@ -213,7 +214,7 @@ port map (
 	i_RS1        => s_rs,
 	i_RS2        => s_rt,
 	i_Wr_DAT     => s_Data2Reg_muxout,
-	i_Wr_DAT_vec => s_MemoryReadData_vec,
+	i_Wr_DAT_vec => s_Data2Reg_muxout_vec,
 	i_WDest      => s_WriteRegDest_muxout,
 	i_WE         => i_RegWrite,
 	o_RS1_DAT    => s_reg_data1,
@@ -305,7 +306,8 @@ s_Data2Reg_muxout    <= s_adresse_PC_plus_4 when i_jump_link = '1' else
                         s_AluResult(31 downto 0)         when i_MemtoReg = '0' else 
                         s_MemoryReadData; 
 
-
+s_Data2Reg_muxout_vec <= s_AluResult         when i_MemtoReg = '0' else 
+                        s_MemoryReadData_vec; 
 		
 ------------------------------------------------------------------------
 -- Registres spéciaux pour la multiplication

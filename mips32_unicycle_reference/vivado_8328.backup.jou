@@ -2,10 +2,10 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Tue Jun 17 14:18:26 2025
-# Process ID: 38188
+# Start of session at: Tue Jun 17 13:08:11 2025
+# Process ID: 8328
 # Current directory: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent18556 C:\Xilinx_Travail\App3\Prob\S4_APP3\mips32_unicycle_reference\mips32_unicycle_reference.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent19360 C:\Xilinx_Travail\App3\Prob\S4_APP3\mips32_unicycle_reference\mips32_unicycle_reference.xpr
 # Log file: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/vivado.log
 # Journal file: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference\vivado.jou
 #-----------------------------------------------------------
@@ -20,7 +20,13 @@ open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/m
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+source mips_unicycle_tb.tcl
+close_sim
 launch_simulation
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+source mips_unicycle_tb.tcl
+close_sim
 launch_simulation
 open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
@@ -30,13 +36,16 @@ open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/m
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+source mips_unicycle_tb.tcl
+close_sim
 launch_simulation
 open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
-relaunch_sim
-relaunch_sim
-relaunch_sim
-save_wave_config {C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg}
+close_sim
+launch_simulation
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
 open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
