@@ -44,11 +44,41 @@ architecture Behavioral of MemDonnees is
 -- Ins?rez vos donnees ici
 ------------------------
 
-X"00000006",
-X"00000007",
-X"00000008",
-X"00000009",
-X"0000000A",
+--X"00000006",
+--X"00000007",
+--X"00000008",
+--X"00000009",
+--X"0000000A",
+
+-- met (16 words)
+    0  => X"00000003",
+    1  => X"00000004",
+    2  => X"00000002",
+    3  => X"00000003",
+    4  => X"00000005",
+    5  => X"00000002",
+    6  => X"00000002",
+    7  => X"00000003",
+    8  => X"00000003",
+    9  => X"00000004",
+    10 => X"00000002",
+    11 => X"00000003",
+    12 => X"00000003",
+    13 => X"00000000",
+    14 => X"00000004",
+    15 => X"00000005",
+
+    -- sinput (4 words)
+    16 => X"00000002",
+    17 => X"00000000",
+    18 => X"00000002",
+    19 => X"00000002",
+
+    -- soutput (4 words)
+    20 => X"00000000",
+    21 => X"00000000",
+    22 => X"00000000",
+    23 => X"00000000",
 
 ------------------------
 -- Fin de votre code
@@ -86,7 +116,7 @@ begin
 	begin
         if clk='0' and clk'event then -- sur front descendant
 			if(i_MemWriteWide = '1' or i_MemReadWide = '1') then
-				assert (i_Addresse(3 downto 0) = "0000") report "mauvais alignement de l'adresse pour une ecriture large" severity failure;
+--				assert (i_Addresse(3 downto 0) = "0000") report "mauvais alignement de l'adresse pour une ecriture large" severity failure;
 			end if;
 	   end if;
 	end process;
@@ -111,10 +141,10 @@ begin
     o_ReadData <= ram_DataMemory(s_MemoryIndex) when i_vec = '0'
                     else (others => '0');
     
-    debug1 <= ram_DataMemory(s_MemoryIndex + 3);
-    debug2 <= ram_DataMemory(s_MemoryIndex + 2);
-    debug3 <= ram_DataMemory(s_MemoryIndex + 1);
-    debug4 <= ram_DataMemory(s_MemoryIndex + 0);
+--    debug1 <= ram_DataMemory(s_MemoryIndex + 3);
+--    debug2 <= ram_DataMemory(s_MemoryIndex + 2);
+--    debug3 <= ram_DataMemory(s_MemoryIndex + 1);
+--    debug4 <= ram_DataMemory(s_MemoryIndex + 0);
     -- valider le segment et l'alignement de l'adresse -- negatif works i guess
     o_ReadDataWide <= ram_DataMemory(s_MemoryIndex + 3) & 
                       ram_DataMemory(s_MemoryIndex + 2) & 

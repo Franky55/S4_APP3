@@ -25,7 +25,7 @@ package MIPS32_package is
     constant ALU_SLTU : std_logic_vector( 3 downto 0 ) := "0011";
     constant ALU_SUB  : std_logic_vector( 3 downto 0 ) := "0110";
     constant ALU_SLT  : std_logic_vector( 3 downto 0 ) := "0111";
-    
+        
     constant ALU_XOR  : std_logic_vector( 3 downto 0 ) := "1000";
     constant ALU_NOR  : std_logic_vector( 3 downto 0 ) := "1001";
     constant ALU_SLL  : std_logic_vector( 3 downto 0 ) := "1010";
@@ -69,7 +69,7 @@ package MIPS32_package is
     constant OP_LWV   : std_logic_vector( 5 downto 0 ) := "010100"; -- 20 dec
     constant OP_SW    : std_logic_vector( 5 downto 0 ) := "101011";
 	constant OP_SWV   : std_logic_vector( 5 downto 0 ) := "010101"; -- 21 dec
-	constant ALUF_ADDV   : std_logic_vector( 5 downto 0 ) := "010110"; -- 22 dec
+	constant OP_ADDV   : std_logic_vector( 5 downto 0 ) := "010110"; -- 22 dec
 	
 	constant c_Mips32_Nop	 	: std_logic_vector(31 downto 0) := X"00000000";
 	-- equivalent au c_Mips32_Nop, mais permet de mieux visualiser dans vivado
@@ -170,8 +170,6 @@ begin
 					CurrentOp := sim_OP_NOR;
 				when ALUF_ADD =>
 					CurrentOp := sim_OP_ADD;
-				when ALUF_ADDV =>
-					CurrentOp := sim_OP_ADDV;
 				when ALUF_ADDU =>
 					CurrentOp := sim_OP_ADDU;
 				when ALUF_SUB =>
@@ -219,6 +217,8 @@ begin
 			CurrentOp := sim_OP_SW;
 	    when OP_SWV =>
 			CurrentOp := sim_OP_SWV;
+		when OP_ADDV =>
+            CurrentOp := sim_OP_ADDV;
 		when others =>
 			CurrentOp := sim_OP_Undefined;
 	end case;

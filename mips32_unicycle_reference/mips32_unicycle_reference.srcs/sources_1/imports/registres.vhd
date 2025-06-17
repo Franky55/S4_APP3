@@ -40,7 +40,7 @@ begin
     begin
         if clk='1' and clk'event then
             if i_WE = '1' and reset = '0' and i_WDest /= "00000" then
-                if (unsigned(i_WDest) = 15 or unsigned(i_WDest) = 14 or unsigned(i_WDest) = 13 or unsigned(i_WDest) = 12) then
+                if (unsigned(i_WDest) = 14 or unsigned(i_WDest) = 13 or unsigned(i_WDest) = 12) then
                     regsV( to_integer( unsigned(i_WDest))- 12) <= i_Wr_DAT_vec;
                 else
                     regs( to_integer( unsigned(i_WDest))) <= i_Wr_DAT;
@@ -48,13 +48,13 @@ begin
             end if;
         end if;
         
-        if (unsigned(i_RS1) = 15 or unsigned(i_RS1) = 14 or unsigned(i_RS1) = 13 or unsigned(i_RS1) = 12) then  -- si registre $t4 - $t7
+        if (unsigned(i_RS1) = 14 or unsigned(i_RS1) = 13 or unsigned(i_RS1) = 12) then  -- si registre $t4 - $t7
             o_RS1_DAT <= regsV( to_integer(unsigned(i_RS1))-12);                                                -- vector -12 pour drop a 0
         else
             o_RS1_DAT(31 downto 0) <= regs( to_integer(unsigned(i_RS1)));
             o_RS1_DAT(127 downto 32) <=  (others => '0');
         end if;
-        if (unsigned(i_RS2) = 15 or unsigned(i_RS2) = 14 or unsigned(i_RS2) = 13 or unsigned(i_RS2) = 12) then
+        if (unsigned(i_RS2) = 14 or unsigned(i_RS2) = 13 or unsigned(i_RS2) = 12) then
             o_RS2_DAT <= regsV( to_integer(unsigned(i_RS2))-12);
         else
             o_RS2_DAT(31 downto 0) <= regs( to_integer(unsigned(i_RS2)));

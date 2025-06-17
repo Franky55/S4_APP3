@@ -50,9 +50,9 @@ begin
             when ALU_OR => 
                 s_result <= i_a or i_b;
             when ALU_NOR => 
-                s_result <= i_a nor i_b;
+                s_result <= i_a nor i_b;                
             when ALU_ADD => 
-                s_result <= std_logic_vector(signed(i_a) + signed(i_b));
+                s_result <= std_logic_vector(signed(i_a) + signed(i_b));             
             when ALU_SUB => 
                 s_result <= std_logic_vector(signed(i_a) - signed(i_b));
             when ALU_SLL => 

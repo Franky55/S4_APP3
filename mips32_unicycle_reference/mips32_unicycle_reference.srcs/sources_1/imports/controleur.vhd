@@ -77,8 +77,8 @@ begin
 			when OP_LW => 
 				o_AluFunct <= ALU_ADD;
 			when OP_LWV =>
-			    o_AluFunct <= ALU_ADD; -- to be determined
-			when ALUF_ADDV =>
+			    o_AluFunct <= ALU_ADD;
+			when OP_ADDV =>
 			    o_AluFunct <= ALU_ADD;
             -- when OP_??? =>   -- autres cas?
 			-- sinon
@@ -141,9 +141,9 @@ begin
 						else '1';
 	o_Branch 		<= '1' when i_Op = OP_BEQ   else '0';
 	o_MemRead 		<= '1' when i_Op = OP_LW or i_Op = OP_LWV else '0';
-	o_MemWrite 		<= '1' when i_Op = OP_SW else '0';
+	o_MemWrite 		<= '1' when i_Op = OP_SW or i_Op = OP_SWV else '0';
 	o_MemtoReg 		<= '1' when i_Op = OP_LW or i_Op = OP_LWV else '0';
-	o_vec           <= '1' when i_Op = OP_LWV or i_Op = OP_SWV or i_Op = ALUF_ADDV else '0';
+	o_vec           <= '1' when i_Op = OP_LWV or i_Op = OP_SWV or i_Op = OP_ADDV else '0';
 	o_SignExtend	<= '1' when i_OP = OP_ADDI or
 	                           i_OP = OP_BEQ 
 	                     else '0';
