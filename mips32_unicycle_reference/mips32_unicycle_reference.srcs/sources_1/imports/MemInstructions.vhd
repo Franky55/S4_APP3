@@ -190,7 +190,8 @@ architecture Behavioral of MemInstructions is
 
 
 --SIMD_TEST_LWV_SWV_ADDV
-X"341DFFF0",
+--X"341DFFF0",
+X"3C011001",
 X"23bdfff0",
 X"24080001",
 X"afa80000",
@@ -201,8 +202,8 @@ X"afa80008",
 X"24080004",
 X"afa8000c",
 X"53ae0000",
-X"23bdffec",
-X"afae0000",
+X"23bdfff0",
+X"57ae0000",
 X"53aD0000", --lwv $t5, 0($sp)
 X"59CD6020", --addv
 X"2002000a",

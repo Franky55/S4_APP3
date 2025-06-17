@@ -2,77 +2,52 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Tue Jun 17 09:45:34 2025
-# Process ID: 9792
-# Current directory: D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent8948 D:\xilinx_Travail\App3\Git\MyGit\S4_APP3\mips32_unicycle_reference\mips32_unicycle_reference.xpr
-# Log file: D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/vivado.log
-# Journal file: D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference\vivado.jou
+# Start of session at: Tue Jun 17 13:08:11 2025
+# Process ID: 8328
+# Current directory: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent19360 C:\Xilinx_Travail\App3\Prob\S4_APP3\mips32_unicycle_reference\mips32_unicycle_reference.xpr
+# Log file: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/vivado.log
+# Journal file: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips32_unicycle_reference.xpr
+open_project C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips32_unicycle_reference.xpr
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
-source mips_unicycle_tb.tcl
-run 10 us
-relaunch_sim
-save_wave_config {D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg}
-close_sim
-launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
-source mips_unicycle_tb.tcl
-run 10 us
-run 10 us
-run 10 us
-run 10 us
-run 1000 us
-run 1000 us
-run all
-close_sim
-launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
-source mips_unicycle_tb.tcl
-run all
-run all
-close_sim
-launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
-source mips_unicycle_tb.tcl
-run all
-close_sim
-launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
-run 1000 us
-run 1000 us
-run 1000 us
-run 1000 us
 close_sim
 launch_simulation
-open_wave_config D:/xilinx_Travail/App3/Git/MyGit/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+source mips_unicycle_tb.tcl
+close_sim
+launch_simulation
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
+source mips_unicycle_tb.tcl
+close_sim
+launch_simulation
+open_wave_config C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips_unicycle_tb_behav.wcfg
 source mips_unicycle_tb.tcl
 close_sim
