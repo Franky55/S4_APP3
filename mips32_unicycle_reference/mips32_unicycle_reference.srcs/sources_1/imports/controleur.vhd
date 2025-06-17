@@ -80,6 +80,8 @@ begin
 			    o_AluFunct <= ALU_ADD;
 			when OP_ADDV =>
 			    o_AluFunct <= ALU_ADD;
+			--when OP_MINV => not use because not in alu
+			    
             -- when OP_??? =>   -- autres cas?
 			-- sinon
             when others =>
@@ -132,10 +134,11 @@ begin
 								i_Op = OP_LW or 
 								i_Op = OP_JAL or 
 								i_Op = OP_LWV or
-								i_Op = OP_ADDV
+								i_Op = OP_ADDV or
+								i_Op = OP_MINV 
 						else '0';
 	
-	o_RegDst 		<= '1' when i_Op = OP_Rtype or i_Op = OP_ADDV else '0';
+	o_RegDst 		<= '1' when i_Op = OP_Rtype or i_Op = OP_ADDV or i_Op = OP_MINV else '0';
 	
 	o_ALUSrc 		<= '0' when i_Op = OP_Rtype or
 								i_Op = OP_BEQ   or 

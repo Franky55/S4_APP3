@@ -70,6 +70,7 @@ package MIPS32_package is
     constant OP_SW    : std_logic_vector( 5 downto 0 ) := "101011";
 	constant OP_SWV   : std_logic_vector( 5 downto 0 ) := "010101"; -- 21 dec
 	constant OP_ADDV   : std_logic_vector( 5 downto 0 ) := "010110"; -- 22 dec
+	constant OP_MINV   : std_logic_vector( 5 downto 0 ) := "010111"; -- 23 dec
 	
 	constant c_Mips32_Nop	 	: std_logic_vector(31 downto 0) := X"00000000";
 	-- equivalent au c_Mips32_Nop, mais permet de mieux visualiser dans vivado
@@ -111,7 +112,8 @@ package MIPS32_package is
         sim_OP_Undefined,
         sim_OP_LWV,
         sim_OP_SWV,
-        sim_OP_ADDV
+        sim_OP_ADDV,
+        sim_OP_MINV
     );
     function f_DisplayOp(InstructionDebug : std_logic_vector( 31 downto 0 )
                         ) return op_type;
@@ -219,6 +221,8 @@ begin
 			CurrentOp := sim_OP_SWV;
 		when OP_ADDV =>
             CurrentOp := sim_OP_ADDV;
+        when OP_MINV =>
+            CurrentOp := sim_OP_MINV;
 		when others =>
 			CurrentOp := sim_OP_Undefined;
 	end case;

@@ -8,4 +8,4 @@ Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
 Time: 0 ps  Iteration: 0  Process: /mips_unicycle_tb/dut/inst_Datapath/inst_Alu2/line__87  File: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips32_unicycle_reference.srcs/sources_1/imports/alu.vhd
 Warning: NUMERIC_STD."=": metavalue detected, returning FALSE
 Time: 0 ps  Iteration: 0  Process: /mips_unicycle_tb/dut/inst_Datapath/inst_Alu/line__87  File: C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips32_unicycle_reference.srcs/sources_1/imports/alu.vhd
-$stop called at time : 180 ns : File "C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips32_unicycle_reference.srcs/sim_1/imports/verif/monitor_unicycle.vhd" Line 64
+$stop called at time : 190 ns : File "C:/Xilinx_Travail/App3/Prob/S4_APP3/mips32_unicycle_reference/mips32_unicycle_reference.srcs/sim_1/imports/verif/monitor_unicycle.vhd" Line 64

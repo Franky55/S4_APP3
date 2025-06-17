@@ -100,6 +100,11 @@ end component;
 		o_zero		: out std_logic
 		);
 	end component;
+	
+	component Check_Minv is
+    Port ( i_vecA : in STD_LOGIC_VECTOR (127 downto 0);
+           o_val_min : out STD_LOGIC_VECTOR (31 downto 0));
+    end component;
 
 	constant c_Registre31		 : std_logic_vector(4 downto 0) := "11111";
 	signal s_zero        : std_logic;
@@ -126,6 +131,8 @@ end component;
     signal s_reg_data2        : std_logic_vector(127 downto 0) := (others => '0');
     signal s_AluResult             : std_logic_vector(127 downto 0) := (others => '0');
     signal s_AluMultResult          : std_logic_vector(63 downto 0);
+    
+    signal s_minv_result            : std_logic_vector(31 downto 0);
     
     signal s_Data2Reg_muxout       : std_logic_vector(31 downto 0);
     signal s_Data2Reg_muxout_vec       : std_logic_vector(127 downto 0);
@@ -275,6 +282,12 @@ port map(
 	o_multRes   => open,
 	o_zero      => s_zero
 	);
+	
+inst_Check_Minv: Check_Minv
+    port map (
+    i_vecA      => s_reg_data2,
+    o_val_min   => s_minv_result
+           );
 
 ------------------------------------------------------------------------
 -- Mémoire de données
@@ -303,6 +316,7 @@ Port map(
 s_Data2Reg_muxout    <= s_adresse_PC_plus_4 when i_jump_link = '1' else
                         r_HI                when i_mfhi = '1' else 
                         r_LO                when i_mflo = '1' else
+                        s_minv_result       when s_opcode = OP_MINV else
                         s_AluResult(31 downto 0)         when i_MemtoReg = '0' else 
                         s_MemoryReadData; 
 
