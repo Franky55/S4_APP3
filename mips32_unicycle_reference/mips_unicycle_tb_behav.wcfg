@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="57108fs"></ZoomEndTime>
-      <Cursor1Time time="156331fs"></Cursor1Time>
+      <ZoomEndTime time="47843fs"></ZoomEndTime>
+      <Cursor1Time time="153620fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="235"></NameColumnWidth>
-      <ValueColumnWidth column_width="113"></ValueColumnWidth>
+      <ValueColumnWidth column_width="108"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="37" />
+   <WVObjectSize size="38" />
    <wvobject fp_name="/mips_unicycle_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -81,6 +81,7 @@
       <obj_property name="ElementShortName">regs[0:31][31:0]</obj_property>
       <obj_property name="ObjectShortName">regs[0:31][31:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject fp_name="/mips_unicycle_tb/dut/inst_Datapath/inst_MemInstr/ram_Instructions" type="array">
       <obj_property name="ElementShortName">ram_Instructions[0:255][31:0]</obj_property>
@@ -170,5 +171,9 @@
    <wvobject fp_name="/mips_unicycle_tb/dut/inst_Datapath/inst_MemDonnees/ram_DataMemory" type="array">
       <obj_property name="ElementShortName">ram_DataMemory[0:255][31:0]</obj_property>
       <obj_property name="ObjectShortName">ram_DataMemory[0:255][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/mips_unicycle_tb/dut/inst_Datapath/s_RD" type="array">
+      <obj_property name="ElementShortName">s_RD[4:0]</obj_property>
+      <obj_property name="ObjectShortName">s_RD[4:0]</obj_property>
    </wvobject>
 </wave_config>

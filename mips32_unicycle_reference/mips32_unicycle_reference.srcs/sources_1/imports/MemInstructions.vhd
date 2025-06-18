@@ -193,20 +193,20 @@ architecture Behavioral of MemInstructions is
 --X"341DFFF0",
 --X"3C011001",
 X"23bdfff0",
-X"24080001",
-X"afa80000",
-X"24080002",
-X"afa80004",
-X"24080003",
-X"afa80008",
 X"24080004",
+X"afa80000",
+X"24080003",
+X"afa80004",
+X"24080002",
+X"afa80008",
+X"24080006",
 X"afa8000c",
 X"53ae0000",
 X"23bdfff0",
 X"57ae0000",
 X"53aD0000", --lwv $t5, 0($sp)
 X"59CD6020", --addv
-X"5d2d0000", --minv $t1, $t5
+X"5dad4800", --minv $t1, $t5, $t5
 X"2002000a",
 X"0000000c",
 
