@@ -1,0 +1,8 @@
+liv $z0, 250		# addi $t5, $zero, 250
+swv $z1, 0($a2)
+
+lwv $z0, 0($a0)		# $t1 = met[i]
+lwv $z1, 0($a1)		# $t2 = si[i]
+addv $z2, $z0, $z1 	# adding to the temp = met[j] + sinput[j]	
+
+minv $t2, $z2, $z2 		# trouve la valeur la plus petite du vecteur
